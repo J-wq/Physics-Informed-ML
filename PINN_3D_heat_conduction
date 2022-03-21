@@ -16,47 +16,170 @@ def get_derivative(y, x, n):
         return get_derivative(dy_dx, x, n-1)
         
         
-class PhysicsInformedContinous:
-  '''
-  The class defines the physics informed neural network (PINN) for a time dependent, 3-dimensional heat conduction problem with a inner moving heat source. 
-  A cube is assumed. 
-  '''
+class PhysicsInformedNeuralNetwork:
+    '''
+    The class defines the physics informed neural network (PINN) for the time dependent, 3-dimensional heat conduction problem with a moving heat source.
+    
+    '''
+    
+    def __init__(self, layers, 
+                 t_IC, x_IC, y_IC, z_IC, 
+                 t_1, x_1, y_1, z_1,
+                 t_2, x_2, y_2, z_2, 
+                 t_3, x_3, y_3, z_3, 
+                 t_4, x_4, y_4, z_4, 
+                 t_5, x_5, y_5, z_5, 
+                 t_f, x_f, y_f, z_f):
+        
+        # Initial condition sampling points 
+        self.t_IC = t_IC
+        self.x_IC = x_IC
+        self.y_IC = y_IC
+        self.z_IC = z_IC
+        
+        # Boundary condition sampling points at cube surface 1-5
+        self.t_1 = t_1
+        self.x_1 = x_1
+        self.y_1 = y_1
+        self.z_1 = z_1
+        
+        self.t_2 = t_2
+        self.x_2 = x_2
+        self.y_2 = y_2
+        self.z_2 = z_2
+        
+        self.t_3 = t_3
+        self.x_3 = x_3
+        self.y_3 = y_3
+        self.z_3 = z_3
+        
+        self.t_4 = t_4
+        self.x_4 = x_4
+        self.y_4 = y_4
+        self.z_4 = z_4
+        
+        self.t_5 = t_5
+        self.x_5 = x_5
+        self.y_5 = y_5
+        self.z_5 = z_5
+        
+        # Collocation sampling points 
+        self.t_f = t_f
+        self.x_f = x_f
+        self.y_f = y_f
+        self.z_f = z_f
+        
+        self.model = self.build_model(layers[0], layers[1:-1], layers[-1])
+        self.train_cost_history = []
+        
+        
+            
+    def build_model(self, input_dimension, hidden_dimension, output_dimension):
+        nonlinearity = torch.nn.Tanh()
+        modules = []
+        modules.append(torch.nn.Linear(input_dimension, hidden_dimension[0]))
+        modules.append(nonlinearity)
+        
+        for i in range(len(hidden_dimension)-1):
+            modules.append(torch.nn.Linear(hidden_dimension[i], hidden_dimension[i+1]))
+            modules.append(nonlinearity)
+            
+        modules.append(torch.nn.Linear(hidden_dimension[-1], output_dimension))
+        model = torch.nn.Sequential(*modules).to(device)
+        print(model)
+        print('Model parameters on gpu: ', next(model.parameters()).is_cuda)
+        return model
+    
+    
+    def u_nn(self, t, x, y, z):
+        u = self.model(torch.cat((t, x, y, z), dim=1))
+        return u
+    
+    
+    def f_nn(self, t, x, y, z):
+        u = self.u_nn(t, x, y, z)
+        u_t = get_derivative(u, t, 1)
+        
+        u_x = get_derivative(u, x, 1)
+        u_xx = get_derivative(u, x, 2)
+        
+        u_y = get_derivative(u, y, 1)
+        u_yy = get_derivative(u, y, 2)
+        
+        u_z = get_derivative(u, z, 1)
+        u_zz = get_derivative(u, z, 2)
+        
+        
+        k = thermal_conductivity
+        k_u = 0.
+        c = heat_capacity
+        
+        s = source_term(t, x, y, z, P=laser_power)
+        f =  c*u_t - k_u*u_x*u_x - k*u_xx - k_u*u_y*u_y - k*u_yy - k_u*u_z*u_z - k*u_zz - s
+        return f
+    
 
-  def __init__(self, layers, 
-               t_IC, x_IC, y_IC, z_IC, 
-               t_1, x_1, y_1, z_1, 
-               t_2, x_2, y_2, z_2,
-               t_3, x_3, y_3, z_3, 
-               t_4, x_4, y_4, z_4,
-               t_5, x_5, y_5, z_5):
-  
-  
-      self.t_IC = t_IC
-      self.x_IC = x_IC
-      self.y_IC = y_IC
-      self.z_IC = z_IC  
-      
-      self.t_1 = t_1 
-      self.x_1 = x_1
-      self.y_1 = y_1
-      self.z_1 = z_1
-      
-      self.t_2 = t_2 
-      self.x_2 = x_2
-      self.y_2 = y_2
-      self.z_2 = z_2
-      
-      self.t_3 = t_3 
-      self.x_3 = x_3
-      self.y_3 = y_3
-      self.z_3 = z_3
-      
-      self.t_4 = t_4 
-      self.x_4 = x_4
-      self.y_4 = y_4
-      self.z_4 = z_4
-      
-      self.t_5 = t_5 
-      self.x_5 = x_5
-      self.y_5 = y_5
-      self.z_5 = z_5
+    def cost_function(self):
+        
+        # Cost IC
+        u_IC_pred = self.u_nn(self.t_IC, self.x_IC, self.y_IC, self.z_IC)
+        
+        # Cost BC
+        u_1_pred = self.u_nn(self.t_1, self.x_1, self.y_1, self.z_1)
+        u_2_pred = self.u_nn(self.t_2, self.x_2, self.y_2, self.z_2)
+        u_3_pred = self.u_nn(self.t_3, self.x_3, self.y_3, self.z_3)
+        u_4_pred = self.u_nn(self.t_4, self.x_4, self.y_4, self.z_4)
+        u_5_pred = self.u_nn(self.t_5, self.x_5, self.y_5, self.z_5)
+        
+        # Cost PINN
+        random_sampling_index = torch.randint(len(self.t_f), (int(MC_pct*len(self.t_f)), ))
+        t_f_MC = self.t_f[random_sampling_index]
+        x_f_MC = self.x_f[random_sampling_index]
+        y_f_MC = self.y_f[random_sampling_index]
+        z_f_MC = self.z_f[random_sampling_index]
+        f_pred = self.f_nn(t_f_MC, x_f_MC, y_f_MC, z_f_MC)
+
+        # MSE calculations
+        mse_IC = torch.mean((u_IC_pred)**2)
+        
+        mse_BC =  torch.mean(u_1_pred**2) \
+                + torch.mean(u_2_pred**2) \
+                + torch.mean(u_3_pred**2) \
+                + torch.mean(u_4_pred**2) \
+                + torch.mean(u_5_pred**2)
+        
+        mse_f = torch.mean((f_pred)**2)
+        
+        return mse_IC, mse_BC, mse_f
+    
+    
+    def train(self, epochs, optimizer='Adam', **kwargs):
+        if optimizer=='Adam':
+            self.optimizer = torch.optim.Adam(self.model.parameters(), **kwargs)
+        
+        elif optimizer=='L-BFGS':
+            self.optimizer = torch.optim.LBFGS(self.model.parameters())
+            
+            def closure():
+                self.optimizer.zero_grad()
+                mse_b, mse_f = self.cost_function()
+                cost = mse_b + mse_f
+                cost.backward(retain_graph=True)
+                return cost
+            
+        for epoch in range(epochs+1):
+            mse_IC, mse_BC, mse_f = self.cost_function()
+            cost = mse_IC + mse_BC + mse_f
+            self.train_cost_history.append([cost.cpu().detach(), mse_IC.cpu().detach(),
+                                            mse_BC.cpu().detach(), mse_f.cpu().detach()])
+            
+            if optimizer=='Adam':
+                self.optimizer.zero_grad()
+                cost.backward(retain_graph=True)
+                self.optimizer.step()
+                
+            elif optimizer=='L-BFGS':
+                self.optimizer.step(closure)
+                
+            if epoch%100==0:
+                print(f'Epoch ({optimizer}): {epoch}, Cost: {cost.detach().cpu().numpy()}')
