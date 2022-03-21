@@ -1,3 +1,12 @@
+# Material parameters 
+heat_capacity = 500.
+thermal_conductivity = 7.
+density = 1. 
+
+# Laser settings
+laser_power = 1.
+
+# Imports
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,14 +17,6 @@ from pyDOE import lhs
 import math
 import time
 import os
-
-# Material parameters 
-heat_capacity = 500.
-thermal_conductivity = 7.
-density = 1. 
-
-# Laser settings
-laser_power = 1.
 
 
 # Torch device
