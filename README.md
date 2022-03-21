@@ -15,5 +15,5 @@ The underlying solved partial differential equation is the heat conduction:
 
 ## Citing this repository
 Please cite the publication when using the repository:
-- Voigt and Moeckel, 'Physic based neural networks for process monitoring'
+- Voigt and Moeckel, 'Physic informed neural networks for heat conduction modeling in material processing and production'
 
