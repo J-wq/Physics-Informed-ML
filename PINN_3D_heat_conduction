@@ -1,0 +1,62 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import torch 
+from torch.autograd import grad
+from pyDOE import lhs
+
+device = torch.device('cuda:0')
+
+def get_derivative(y, x, n):
+    if n==0:
+        return y
+    else:
+        dy_dx = grad(y, x, torch.ones_like(y), create_graph=True, retain_graph=True, allow_unused=True)[0]
+        return get_derivative(dy_dx, x, n-1)
+        
+        
+class PhysicsInformedContinous:
+  '''
+  The class defines the physics informed neural network (PINN) for a time dependent, 3-dimensional heat conduction problem with a inner moving heat source. 
+  A cube is assumed. 
+  '''
+
+  def __init__(self, layers, 
+               t_IC, x_IC, y_IC, z_IC, 
+               t_1, x_1, y_1, z_1, 
+               t_2, x_2, y_2, z_2,
+               t_3, x_3, y_3, z_3, 
+               t_4, x_4, y_4, z_4,
+               t_5, x_5, y_5, z_5):
+  
+  
+      self.t_IC = t_IC
+      self.x_IC = x_IC
+      self.y_IC = y_IC
+      self.z_IC = z_IC  
+      
+      self.t_1 = t_1 
+      self.x_1 = x_1
+      self.y_1 = y_1
+      self.z_1 = z_1
+      
+      self.t_2 = t_2 
+      self.x_2 = x_2
+      self.y_2 = y_2
+      self.z_2 = z_2
+      
+      self.t_3 = t_3 
+      self.x_3 = x_3
+      self.y_3 = y_3
+      self.z_3 = z_3
+      
+      self.t_4 = t_4 
+      self.x_4 = x_4
+      self.y_4 = y_4
+      self.z_4 = z_4
+      
+      self.t_5 = t_5 
+      self.x_5 = x_5
+      self.y_5 = y_5
+      self.z_5 = z_5
