@@ -3,7 +3,10 @@ The repository provides a tutorial for the implementation of a physics informed 
 
 ## Underlying physics
 The underlying solved partial differential equation is the heat conduction: 
-$\frac{d}{dt}u$
+
+\begin{equation}
+  $\frac{d}{dt}u$
+\end{equation}
 
 
 ## Modeled domain
