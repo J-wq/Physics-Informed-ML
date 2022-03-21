@@ -2,20 +2,59 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import torch 
+import torch
 from torch.autograd import grad
 from pyDOE import lhs
+import math
+import time
+import os
 
+# Material parameters 
+heat_capacity = 500.
+thermal_conductivity = 7.
+density = 1. 
+
+# Laser settings
+laser_power = 1.
+
+
+# Torch device
 device = torch.device('cuda:0')
 
+
+# Important function
 def get_derivative(y, x, n):
     if n==0:
         return y
     else:
         dy_dx = grad(y, x, torch.ones_like(y), create_graph=True, retain_graph=True, allow_unused=True)[0]
         return get_derivative(dy_dx, x, n-1)
-        
-        
+    
+    
+def laser_position(t, x_0, v_x, y_0, v_y, z_0, v_z):
+
+    x_focus = np.round(v_x*t.cpu().detach().numpy() + x_0, decimals=5)
+    x_focus = torch.tensor(x_focus, dtype=torch.float32, requires_grad=True).to(device)
+
+    y_focus = np.round(v_y*t.cpu().detach().numpy() + y_0, decimals=5)
+    y_focus = torch.tensor(y_focus, dtype=torch.float32, requires_grad=True).to(device)
+
+    z_focus = np.round(v_z*t.cpu().detach().numpy() + z_0, decimals=5)
+    z_focus = torch.tensor(z_focus, dtype=torch.float32, requires_grad=True).to(device)
+
+    return x_focus, y_focus, z_focus
+
+
+def source_term(t, x, y, z, P=1):
+
+    r_spot = 0.1
+    x_focus, y_focus, z_focus = laser_position(t, 0., 1., 0.5, 0, 0.5, 0)
+    r_focus = torch.sqrt((x-x_focus)**2 + (y-y_focus)**2 + (z-z_focus)**2)
+    Q = 2*P/(math.pi*r_spot**3)*torch.exp(-2*(r_focus**2/r_spot**2))
+
+    return Q
+    
+    
 class PhysicsInformedNeuralNetwork:
     '''
     The class defines the physics informed neural network (PINN) for the time dependent, 3-dimensional heat conduction problem with a moving heat source.
