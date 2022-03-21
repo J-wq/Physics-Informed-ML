@@ -11,3 +11,9 @@ The underlying solved partial differential equation is the heat conduction:
 
 ## Modeled domain
 ![alt text](https://github.com/J-wq/Physics-Informed-ML/blob/main/Error_t%3D0.5.png?raw=true)
+
+
+## Citing this repository
+Please cite the publication when using the repository:
+- Voigt and Moeckel, 'Physic based neural networks for process monitoring'
+
