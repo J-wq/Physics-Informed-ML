@@ -10,7 +10,7 @@ The underlying solved partial differential equation is the heat conduction:
 
 
 ## Modeled domain
-![alt text](https://github.com/J-wq/Physics-Informed-ML/blob/main/Error_t%3D0.5.png?raw=true)
+![alt text](https://github.com/J-wq/Physics-Informed-ML/blob/main/Images/PINN_simulation_cross_section.png?raw=true)
 
 
 ## Citing this repository
