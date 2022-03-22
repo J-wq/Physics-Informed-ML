@@ -6,6 +6,7 @@ The underlying solved partial differential equation is the heat conduction. The 
 
 !['dfd'](Images/Video_manim_PDE_Heat.gif)
 
+<img src='Images/Video_manim_PDE_Heat.gif' widthh=100 height=100/>
 
 ## Modeled domain
 
