@@ -4,9 +4,8 @@ The repository provides a tutorial for the implementation of a physics informed 
 ## Underlying physics
 The underlying solved partial differential equation is the heat conduction. The animation shows the partial differential equation for heat conduction, which is rewritten to become a minimization problem.
 
-!['dfd'](Images/Video_manim_PDE_Heat.gif)
 <p>
-  <img src='Images/Video_manim_PDE_Heat.gif' width=500 height=250/>
+  <img src='Images/Video_manim_PDE_Heat.gif' width=500 height=250 alt>
   <em>Caption</em>
 </p>
 
