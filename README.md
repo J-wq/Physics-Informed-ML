@@ -3,7 +3,7 @@ The repository provides a tutorial for the implementation of a physics informed 
 The repository consists of the following:
 - PINN_3D_heat_conduction --> Python code of the Physics-Informed Neural Network (PINN)
 - Images (Images and animations)
-- 
+
 ## Underlying physics
 The underlying solved partial differential equation is the heat conduction. The animation shows the partial differential equation for heat conduction, which is rewritten to become a minimization problem.
 
