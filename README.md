@@ -22,7 +22,7 @@ The animation shows the calculation of the PINN and the moving heat source for t
   <br>
   <em>Animation of the moving heat source and calcuted heat conduction by the PINN.</em>
 </p>
-The temperature field at t=0.5 along the cross section of the laser path can be seen. The heat conduction show an expected behavior and the quantitive error is approximaty 4% in comparision to FEM solutions. 
+The temperature field at t=0.5 along the cross section of the laser path can be seen. The heat conduction show an expected behavior and the mean absolute error for the whole domain is 0.00078. The highest local difference between the solution from the PINN and FEM is 0.01, which is roughly 10%. 
 <p>
   <img src='Images/PINN_simulation_cross_section.png'/>
   <br>
