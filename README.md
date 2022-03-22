@@ -30,7 +30,7 @@ The temperature field at t=0.5 along the cross section of the laser path can be 
   <em>The cut along the laser path shows the heat conduction in the material modeled by the PINN.</em>
 </p>
 
-The highest local difference between the solution from the PINN and FEM is 0.01, which is roughly 10%. However, this larger difference only occurs at a comparably small region.
+The highest local difference between the solution from the PINN and FEM is 0.01 at the surface in front of the heat source. However, this larger difference only occurs at a comparably small region. In the remaining part, the PINN show good agreement to the FEM. 
 <p>
   <img src='Images/FEM_PINN_Error_comparison.png' width=75% height=75% />
   <br>
