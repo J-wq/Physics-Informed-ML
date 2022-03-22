@@ -8,7 +8,7 @@ The repository consists of the following:
 ## Underlying physics
 The underlying solved partial differential equation is the heat conduction. The animation shows the partial differential equation for heat conduction, which is rewritten to become a minimization problem.
 <p>
-  <img src='Images/Video_manim_PDE_Heat.gif' width=50% height=50% />
+  <img src='Images/Video_manim_PDE_Heat.gif' width=40% height=40% />
   <br>
   <em>The partial differential equation for heat conduction becomes a minimzation problem.</em>
 </p>
