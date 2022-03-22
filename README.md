@@ -10,7 +10,7 @@ The underlying solved partial differential equation is the heat conduction. The 
   <em>The partial differential equation for heat conduction becomes a minimzation problem.</em>
 </p>
 
-The neural network approximates the function u(\vec{x},t), and the derivatives with respect to time and space are minimized in the loss function of the PINN. 
+The neural network approximates the function u, and the loss function in the PINN is defined by taking the derivatives with respect to time and space to minimize equation. By introducing initial conditions and boundary conditions a physical problem is sufficiently described and the solution is approximated by the neural network. 
   
 ## Modeled domain
 
