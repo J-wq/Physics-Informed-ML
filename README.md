@@ -18,13 +18,13 @@ The neural network approximates the function u and the loss function in the PINN
 ## Results
 The animation shows the calculation of the PINN and the moving heat source for the calculated time interval. 
 <p>
-  <img src='Images/Video_3D.gif'/>
+  <img src='Images/Video_3D.gif' width=75% height=75% />
   <br>
   <em>Animation of the moving heat source and calcuted heat conduction by the PINN.</em>
 </p>
 The temperature field at t=0.5 along the cross section of the laser path can be seen. The heat conduction show an expected behavior and the mean absolute error for the whole domain is 0.00078. The highest local difference between the solution from the PINN and FEM is 0.01, which is roughly 10%. 
 <p>
-  <img src='Images/PINN_simulation_cross_section.png'/>
+  <img src='Images/PINN_simulation_cross_section.png' width=50% height=50% />
   <br>
   <em>The cross section along the laser path shows an accurate temperature field modeling by the PINN within the material.</em>
 </p>
