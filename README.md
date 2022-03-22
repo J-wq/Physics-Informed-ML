@@ -1,5 +1,6 @@
 # Physics-Informed-ML
 The repository provides a tutorial for the implementation of a physics informed neural network (PINN) to solve a heat conduction problem for a cuboid with an applied heat source. The PINN can be used to model the temperature fields within materials exposed to, e.g. laser irradiation in additive manufacturing. The underlying research question is, if the PINN can sufficiently model the temperature field within the material. 
+
 The repository consists of the following:
 - PINN_3D_heat_conduction --> Python code of the Physics-Informed Neural Network (PINN)
 - Images (Images and animations)
