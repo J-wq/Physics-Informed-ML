@@ -8,7 +8,7 @@ The underlying solved partial differential equation is the heat conduction:
   $\frac{d}{dt}u$ - s
 \end{equation}
 
-![Caption](Images/Video_manim_PDE_Heat.mp4)
+![Caption](Images/Video_manim_PDE_Heat.gif)
 
 
 ## Modeled domain
