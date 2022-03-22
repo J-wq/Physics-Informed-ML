@@ -24,8 +24,6 @@ The animation shows the calculation of the PINN and the moving heat source for t
   <em>Animation of the moving heat source and calcuted heat conduction by the PINN.</em>
 </p>
 
-![Caption](Images/Video_3D.gif)
-
 The temperature field at t=0.5 along the cross section of the laser path can be seen. The heat conduction show an expected behavior and the quantitive error is approximaty 4% in comparision to FEM solutions. 
 
 <p>
@@ -33,9 +31,6 @@ The temperature field at t=0.5 along the cross section of the laser path can be 
   <br>
   <em>The cross section along the laser path shows an accurate temperature field modeling by the PINN within the material.</em>
 </p>
-
-![alt text](https://github.com/J-wq/Physics-Informed-ML/blob/main/Images/PINN_simulation_cross_section.png?raw=true)
-
 
 ## Citing this repository
 Please cite the publication when using the repository:
