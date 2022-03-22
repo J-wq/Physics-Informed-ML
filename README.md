@@ -1,5 +1,5 @@
 # Physics-Informed-ML
-The repository provides a tutorial for the implementation of a physics informed neural network (PINN) to solve a continous heat conduction problem for a cuboid at an applied heat source. The PINN can be used to model the temperature fields within materials exposed to, e.g. laser irradiation in additive manufacturing. The underlying research question is, if the PINN can model the temperature field within the material accurately. 
+The repository provides a tutorial for the implementation of a physics informed neural network (PINN) to solve a heat conduction problem for a cuboid with an applied heat source. The PINN can be used to model the temperature fields within materials exposed to, e.g. laser irradiation in additive manufacturing. The underlying research question is, if the PINN can sufficiently model the temperature field within the material. 
 
 ## Underlying physics
 The underlying solved partial differential equation is the heat conduction. The animation shows the partial differential equation for heat conduction, which is rewritten to become a minimization problem.
@@ -10,16 +10,29 @@ The underlying solved partial differential equation is the heat conduction. The 
   <em>The partial differential equation for heat conduction becomes a minimzation problem.</em>
 </p>
 
-The neural network approximates the function u, and the loss function in the PINN is defined by taking the derivatives with respect to time and space to minimize equation. By introducing initial conditions and boundary conditions a physical problem is sufficiently described and the solution is approximated by the neural network. 
+The neural network approximates the function u and the loss function in the PINN is defined by taking the derivatives from u with respect to time and space to minimize the shown equation. By adding initial conditions and boundary conditions to the loss function, the physical problem is sufficiently described and the solution is approximated by the neural network. 
   
 ## Modeled domain
 
 
 ## Results
-The animation shows the calculation of the PINN and the moving heat source for the time interval. 
+The animation shows the calculation of the PINN and the moving heat source for the calculated time interval. 
+
+<p>
+  <img src='Images/Video_3D.gif'/>
+  <br>
+  <em>Animation of the moving heat source and calcuted heat conduction by the PINN.</em>
+</p>
+
 ![Caption](Images/Video_3D.gif)
 
 The temperature field at t=0.5 along the cross section of the laser path can be seen. The heat conduction show an expected behavior and the quantitive error is approximaty 4% in comparision to FEM solutions. 
+
+<p>
+  <img src='Images/PINN_simulation_cross_section.png'/>
+  <br>
+  <em>The cross section along the laser path shows an accurate temperature field modeling by the PINN within the material.</em>
+</p>
 
 ![alt text](https://github.com/J-wq/Physics-Informed-ML/blob/main/Images/PINN_simulation_cross_section.png?raw=true)
 
