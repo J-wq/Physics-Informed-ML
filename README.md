@@ -18,7 +18,7 @@ The neural network approximates the function u and the loss function in the PINN
 ## Results
 The animation shows the calculation of the PINN and the moving heat source for the calculated time interval. 
 <p>
-  <img src='Images/Video_3D.gif' width=75% height=75% />
+  <img src='Images/Video_3D.gif' width=50% height=50% />
   <br>
   <em>Animation of the moving heat source and calcuted heat conduction by the PINN.</em>
 </p>
