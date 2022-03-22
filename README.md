@@ -7,7 +7,7 @@ The underlying solved partial differential equation is the heat conduction. The 
 <p>
   <img src='Images/Video_manim_PDE_Heat.gif' width=50% height=50% />
   <br>
-  <em>Caption</em>
+  <em>The partial differential equation for heat conduction becomes a minimzation problem.</em>
 </p>
 
   
