@@ -5,6 +5,7 @@ density = 1.
 
 # Laser settings
 laser_power = 1.
+v_x = 1.
 
 # Imports
 import numpy as np
@@ -49,7 +50,7 @@ def laser_position(t, x_0, v_x, y_0, v_y, z_0, v_z):
 def source_term(t, x, y, z, P=1):
 
     r_spot = 0.1
-    x_focus, y_focus, z_focus = laser_position(t, 0., 1., 0.5, 0, 0.5, 0)
+    x_focus, y_focus, z_focus = laser_position(t, 0., v_x, 0.5, 0, 0.5, 0)
     r_focus = torch.sqrt((x-x_focus)**2 + (y-y_focus)**2 + (z-z_focus)**2)
     Q = 2*P/(math.pi*r_spot**3)*torch.exp(-2*(r_focus**2/r_spot**2))
 
