@@ -39,5 +39,5 @@ The highest local difference between the solution from the PINN and FEM is 0.01 
 
 ## Citing this repository
 Please cite the publication when using the repository:
-- Voigt and Moeckel, 'Physic informed neural networks for heat conduction modeling in material processing and production'
+- Voigt and Moeckel, 'Modelling dynamic 3D heat transfer in laser material processing based on physics informed neural networks', 2022.
 
