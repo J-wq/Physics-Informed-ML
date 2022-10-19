@@ -39,5 +39,4 @@ The highest local difference between the solution from the PINN and FEM is 0.01 
 
 ## Citing this repository
 Please cite the publication when using the repository:
-- Voigt and Moeckel, 'Modelling dynamic 3D heat transfer in laser material processing based on physics informed neural networks', 2022.
-
+- Voigt, Jorrit; Moeckel, Michael; Costa, M. F.; Flores-Arias, M.; Pauliat, G.; Segonds, P. (2022): Modelling dynamic 3D heat transfer in laser material processing based on physics informed neural networks. In: EPJ Web Conf. 266, S. 2010. DOI: 10.1051/epjconf/202226602010.
